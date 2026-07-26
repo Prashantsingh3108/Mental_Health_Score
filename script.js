@@ -9,7 +9,7 @@
  * The API's own docs page (…/docs) is just the Swagger UI — the form
  * posts straight to the /predict route itself.
  */
-const API_BASE_URL = 'http://127.0.0.1:2200';
+const API_BASE_URL = 'https://mental-health-score-thnu.onrender.com';
 const PREDICT_ENDPOINT = `${API_BASE_URL}/predict`;
 
 // The model's score range. Adjust MAX_SCORE if your model was trained
