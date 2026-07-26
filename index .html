@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Digital Wellbeing Check — Mental Health Score</title>
+  <meta name="description" content="Estimate a student's mental health score from social media and lifestyle habits." />
+
+  <!-- Fonts: Fraunces (display) + Inter (body/UI) + IBM Plex Mono (data labels) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="page">
+
+    <!-- ============ HEADER ============ -->
+    <header class="site-header">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M12 21s-7.5-4.6-10-9.3C.4 8.1 2.3 4 6.4 4c2.1 0 3.7 1.2 5.6 3.4C13.9 5.2 15.5 4 17.6 4c4.1 0 6 4.1 4.4 7.7C19.5 16.4 12 21 12 21Z" />
+          </svg>
+        </span>
+        <span>Digital Wellbeing Check</span>
+      </div>
+      <p class="brand-sub">A quick read on how screen habits line up with rest, study, and stress.</p>
+    </header>
+
+    <!-- ============ MAIN LAYOUT ============ -->
+    <main class="layout">
+
+      <!-- ---------- FORM COLUMN ---------- -->
+      <section class="form-panel" aria-labelledby="form-heading">
+        <h1 id="form-heading">Tell us about a typical day</h1>
+        <p class="panel-hint">Every field feeds the model — fill them in as accurately as you can.</p>
+
+        <form id="predict-form" novalidate>
+
+          <!-- Group 01 — Profile -->
+          <fieldset class="field-group">
+            <legend><span class="legend-index">01</span> Profile</legend>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age" min="10" max="100" step="1" placeholder="20" required />
+                <span class="field-error" data-error-for="age"></span>
+              </div>
+
+              <div class="field">
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender" required>
+                  <option value="" disabled selected>Select</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+                <span class="field-error" data-error-for="gender"></span>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="country">Country</label>
+                <input type="text" id="country" name="country" list="country-list" placeholder="e.g. India" required autocomplete="off" />
+                <datalist id="country-list">
+                  <option value="India"></option>
+                  <option value="USA"></option>
+                  <option value="Canada"></option>
+                  <option value="Australia"></option>
+                  <option value="UK"></option>
+                  <option value="Germany"></option>
+                  <option value="Mexico"></option>
+                  <option value="Turkey"></option>
+                  <option value="France"></option>
+                  <option value="Other"></option>
+                </datalist>
+                <span class="field-hint">Countries outside the top list are grouped as "Other" by the model.</span>
+                <span class="field-error" data-error-for="country"></span>
+              </div>
+
+              <div class="field">
+                <label for="academic_level">Academic level</label>
+                <select id="academic_level" name="academic_level" required>
+                  <option value="" disabled selected>Select</option>
+                  <option value="High School">High School</option>
+                  <option value="Undergraduate">Undergraduate</option>
+                  <option value="Graduate">Graduate</option>
+                </select>
+                <span class="field-error" data-error-for="academic_level"></span>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Group 02 — Platform habits -->
+          <fieldset class="field-group">
+            <legend><span class="legend-index">02</span> Platform habits</legend>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="most_used_platform">Most used platform</label>
+                <select id="most_used_platform" name="most_used_platform" required>
+                  <option value="" disabled selected>Select</option>
+                  <option>Facebook</option>
+                  <option>LinkedIn</option>
+                  <option>Instagram</option>
+                  <option>Snapchat</option>
+                  <option>Twitter</option>
+                  <option>YouTube</option>
+                  <option>TikTok</option>
+                  <option>LINE</option>
+                  <option>KakaoTalk</option>
+                  <option>VKontakte</option>
+                  <option>WhatsApp</option>
+                  <option>WeChat</option>
+                </select>
+                <span class="field-error" data-error-for="most_used_platform"></span>
+              </div>
+
+              <div class="field">
+                <label for="purpose_of_use">Main purpose of use</label>
+                <select id="purpose_of_use" name="purpose_of_use" required>
+                  <option value="" disabled selected>Select</option>
+                  <option value="Networking">Networking</option>
+                  <option value="Education">Education</option>
+                  <option value="Entertainment">Entertainment</option>
+                  <option value="News">News</option>
+                </select>
+                <span class="field-error" data-error-for="purpose_of_use"></span>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="avg_daily_usage_hours">Avg. daily usage <span class="unit">(hrs)</span></label>
+                <input type="number" id="avg_daily_usage_hours" name="avg_daily_usage_hours" min="0" max="24" step="0.1" placeholder="3.5" required />
+                <span class="field-error" data-error-for="avg_daily_usage_hours"></span>
+              </div>
+
+              <div class="field">
+                <label for="daily_unlocks">Daily phone unlocks</label>
+                <input type="number" id="daily_unlocks" name="daily_unlocks" min="0" step="1" placeholder="60" required />
+                <span class="field-error" data-error-for="daily_unlocks"></span>
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Group 03 — Wellbeing -->
+          <fieldset class="field-group">
+            <legend><span class="legend-index">03</span> Wellbeing</legend>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="study_hours">Study hours <span class="unit">(per day)</span></label>
+                <input type="number" id="study_hours" name="study_hours" min="0" max="24" step="0.1" placeholder="4" required />
+                <span class="field-error" data-error-for="study_hours"></span>
+              </div>
+
+              <div class="field">
+                <label for="physical_activity_hours">Physical activity <span class="unit">(hrs)</span></label>
+                <input type="number" id="physical_activity_hours" name="physical_activity_hours" min="0" max="2" step="0.1" placeholder="0.5" required />
+                <span class="field-error" data-error-for="physical_activity_hours"></span>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="sleep_hours_per_night">Sleep <span class="unit">(hrs / night)</span></label>
+                <input type="number" id="sleep_hours_per_night" name="sleep_hours_per_night" min="0" max="24" step="0.1" placeholder="7" required />
+                <span class="field-error" data-error-for="sleep_hours_per_night"></span>
+              </div>
+
+              <div class="field">
+                <label for="stress_level">Stress level</label>
+                <select id="stress_level" name="stress_level" required>
+                  <option value="" disabled selected>Select</option>
+                  <option value="Low">Low</option>
+                  <option value="Medium">Medium</option>
+                  <option value="High">High</option>
+                  <option value="Very High">Very High</option>
+                </select>
+                <span class="field-error" data-error-for="stress_level"></span>
+              </div>
+            </div>
+          </fieldset>
+
+          <div class="form-actions">
+            <button type="submit" id="predict-btn" class="btn-predict">
+              <span class="btn-label">Predict my score</span>
+              <span class="btn-spinner" aria-hidden="true"></span>
+            </button>
+            <p class="form-error" id="form-error" role="alert"></p>
+          </div>
+
+        </form>
+      </section>
+
+      <!-- ---------- RESULT COLUMN ---------- -->
+      <aside class="result-panel" aria-labelledby="result-heading">
+        <h2 id="result-heading">Your result</h2>
+
+        <div class="dial-card" id="result-card">
+
+          <!-- Empty state -->
+          <div class="dial-empty" id="dial-empty">
+            <svg viewBox="0 0 120 120" width="96" height="96" aria-hidden="true">
+              <circle cx="60" cy="60" r="52" fill="none" stroke="var(--line)" stroke-width="8" />
+            </svg>
+            <p>Fill in the form and predict to see a wellbeing dial here.</p>
+          </div>
+
+          <!-- Result state (hidden until a prediction returns) -->
+          <div class="dial-result" id="dial-result" hidden>
+            <svg viewBox="0 0 120 120" width="180" height="180" class="dial-svg" aria-hidden="true">
+              <circle cx="60" cy="60" r="52" fill="none" stroke="var(--line)" stroke-width="8" />
+              <circle
+                cx="60" cy="60" r="52" fill="none"
+                stroke="var(--dial-color, var(--sage))"
+                stroke-width="8"
+                stroke-linecap="round"
+                id="dial-arc"
+                class="dial-arc"
+              />
+            </svg>
+            <div class="dial-center">
+              <span class="dial-score" id="dial-score">0</span>
+              <span class="dial-max">/ <span id="dial-max">10</span></span>
+            </div>
+            <p class="dial-label" id="dial-label">—</p>
+            <p class="dial-caption" id="dial-caption"></p>
+          </div>
+
+        </div>
+
+        <p class="disclaimer">
+          This is a statistical estimate from lifestyle data, not a clinical assessment.
+          If you're struggling, please talk to a counsellor or someone you trust.
+        </p>
+      </aside>
+
+    </main>
+
+    <footer class="site-footer">
+      <span>Mental Health Score Prediction · FastAPI + scikit-learn</span>
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
